@@ -43,13 +43,19 @@ export const transformCode = async (request: TransformRequest): Promise<Transfor
     });
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+      if (response.status === 404) {
+        throw new Error('Backend service is not available. Please check if the service is running.');
+      }
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
 
     const data: TransformResponse = await response.json();
     return data;
   } catch (error) {
     console.error('API Error:', error);
+    if (error instanceof TypeError && error.message === 'Failed to fetch') {
+      throw new Error('Unable to connect to the backend service. Please check your internet connection and ensure the service is running.');
+    }
     throw new Error('Failed to transform code. Please try again later.');
   }
 };
