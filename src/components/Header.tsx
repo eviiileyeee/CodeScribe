@@ -9,6 +9,7 @@ import {
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
 import Link from "next/link"
+import Image from "next/image"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -24,10 +25,12 @@ const Header = () => {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
-                        <img
+                        <Image
                             src="https://tse3.mm.bing.net/th?id=OIP.1fwIPS0UPPDwO84HRxoiBwHaHa&pid=Api&P=0&h=180"
-                            className="h-8 w-6"
+                            width={24}
+                            height={32}
                             alt="CodeScribe AI Logo"
+                            className="h-8 w-6"
                         />
                         <span className="text-xl font-bold">
                             <span className="text-primary">Code</span>

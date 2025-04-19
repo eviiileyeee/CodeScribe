@@ -28,8 +28,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     try {
       const highlighted = hljs.highlight(value || ' ', { language }).value;
       setHighlightedCode(highlighted);
-    } catch (error) {
-      console.error('Highlighting error:', error);
+    } catch {
       setHighlightedCode(value);
     }
   }, [value, language]);
