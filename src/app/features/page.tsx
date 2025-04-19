@@ -1,10 +1,21 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { CloudUpload } from "lucide-react";
 
-const features = [
+interface FeatureType {
+  title: string;
+  description: string;
+  pointers: string[];
+  image: string;
+  alt: string;
+  button?: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+const features: FeatureType[] = [
   {
     title: "Multi-language Code Conversion",
     description:
@@ -87,7 +98,7 @@ const Feature = () => {
   );
 };
 
-const FeatureItem = ({ feature, index }: { feature: any; index: number }) => {
+const FeatureItem = ({ feature, index }: { feature: FeatureType; index: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -171,10 +182,13 @@ const FeatureItem = ({ feature, index }: { feature: any; index: number }) => {
         }
         transition={{ delay: 0.6 + 0.2 * index, duration: 0.1 }}
       >
-        <img
+        <Image
           src={feature.image}
           alt={feature.alt}
           className="w-full rounded-lg object-cover"
+          width={600}
+          height={400}
+          priority={true}
         />
       </motion.div>
     </motion.div>
