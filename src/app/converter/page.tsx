@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
+import { Skeleton } from "@/components/ui/skeleton"
 
 const Index = () => {
   const [sourceCode, setSourceCode] = useState('');
@@ -41,7 +42,7 @@ const Index = () => {
         code: response.data.convertedCode,
         explanations: response.data.explanations,
       });
-      
+
       toast.success("Transformation complete!", {
         description: `Successfully converted ${sourceLanguage} to ${targetLanguage}`
       });
@@ -61,26 +62,26 @@ const Index = () => {
         <h1 className="text-3xl font-bold mb-8 text-center">
           Transform your code between programming languages
         </h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="col-span-1">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-lg font-semibold">Source Code</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <LanguageSelector 
-                  value={sourceLanguage} 
-                  onChange={setSourceLanguage} 
-                  label="From Language" 
+                <LanguageSelector
+                  value={sourceLanguage}
+                  onChange={setSourceLanguage}
+                  label="From Language"
                 />
-                <LanguageSelector 
-                  value={targetLanguage} 
-                  onChange={setTargetLanguage} 
-                  label="To Language" 
-                  disabled={isTransforming} 
+                <LanguageSelector
+                  value={targetLanguage}
+                  onChange={setTargetLanguage}
+                  label="To Language"
+                  disabled={isTransforming}
                 />
               </div>
-              
+
               <div>
                 <label className="text-sm font-medium block mb-2">Custom Prompt (Optional)</label>
                 <input
@@ -92,7 +93,7 @@ const Index = () => {
                   className="w-full rounded-md px-4 py-2 border"
                 />
               </div>
-              
+
               <CodeEditor
                 value={sourceCode}
                 onChange={setSourceCode}
@@ -100,10 +101,10 @@ const Index = () => {
                 placeholder="// Enter your source code here..."
                 readOnly={isTransforming}
               />
-              
-              <Button 
-                onClick={handleTransform} 
-                className="w-full" 
+
+              <Button
+                onClick={handleTransform}
+                className="w-full"
                 disabled={isTransforming || !sourceCode.trim()}
               >
                 {isTransforming ? (
@@ -119,7 +120,7 @@ const Index = () => {
               </Button>
             </CardContent>
           </Card>
-          
+
           <Card className="col-span-1">
             <CardContent className="p-6 space-y-4">
               {result.code ? (
@@ -128,6 +129,14 @@ const Index = () => {
                   explanations={result.explanations}
                   language={targetLanguage}
                 />
+              ) : isTransforming ? (
+                <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground">
+                  <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                  </div>
+                </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center text-muted-foreground">
                   <div className="p-8">
@@ -141,8 +150,9 @@ const Index = () => {
               )}
             </CardContent>
           </Card>
+
         </div>
-        
+
         <div className="mt-12 text-center text-sm text-muted-foreground">
           <p>
             Powered by AI - Transform code between languages with ease.
