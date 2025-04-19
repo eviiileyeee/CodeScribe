@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navigation = [
   { name: "About", href: "#" },
@@ -15,8 +16,11 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
           <Link href="/" className="block max-w-fit">
             <div className="inline-flex items-center space-x-2">
-              <img
+              <Image
                 src="https://tse3.mm.bing.net/th?id=OIP.1fwIPS0UPPDwO84HRxoiBwHaHa&pid=Api&P=0&h=180"
+                width={32}
+                height={40}
+                alt="CodeScribe AI Logo"
                 className="h-10 w-8"
               />
               <p className="text-base">
