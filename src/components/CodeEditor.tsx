@@ -55,7 +55,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           highlight={code => {
             try {
               return hljs.highlight(code || ' ', { language }).value;
-            } catch (error) {
+            } catch {
               return code;
             }
           }}
