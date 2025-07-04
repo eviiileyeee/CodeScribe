@@ -38,7 +38,7 @@ const Pricing = () => {
 
   return (
     <>
-      <section className="w-full py-16 mx-auto">
+      <section className="w-full py-16 mx-auto cursor-not-allowed opacity-50">
         <div className=" mb-16 text-center">
           <h1 className="text-3xl font-bold lg:text-5xl">Pricing</h1>
 

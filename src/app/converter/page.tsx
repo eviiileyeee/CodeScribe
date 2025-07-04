@@ -135,6 +135,8 @@ const Index = () => {
                   <div className="space-y-2">
                     <Skeleton className="h-4 w-[250px]" />
                     <Skeleton className="h-4 w-[200px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                    <span className="sr-only">it may take a while to transform the code</span>
                   </div>
                 </div>
               ) : (

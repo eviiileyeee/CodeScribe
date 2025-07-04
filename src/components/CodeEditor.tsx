@@ -40,36 +40,43 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   return (
-    <div className={`border rounded-md overflow-hidden bg-code ${className}`}>
-      {readOnly ? (
-        <pre className="code-output p-4">
-          <code 
-            className={`language-${language}`} 
-            dangerouslySetInnerHTML={{ __html: highlightedCode || placeholder }}
-          />
-        </pre>
-      ) : (
-        <Editor
-          value={value}
-          onValueChange={handleValueChange}
-          highlight={code => {
-            try {
-              return hljs.highlight(code || ' ', { language }).value;
-            } catch {
-              return code;
-            }
-          }}
-          padding={16}
-          className="code-editor"
-          style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            minHeight: '200px',
-          }}
-          placeholder={placeholder}
-          disabled={readOnly}
+    <div
+    className={`border rounded-md bg-code overflow-x-auto w-full max-w-full ${className}`}
+    style={{ WebkitOverflowScrolling: 'touch' }} // smooth scroll on iOS
+  >
+    {readOnly ? (
+      <pre className="code-output p-4 overflow-x-auto whitespace-pre w-full">
+        <code
+          className={`language-${language}`}
+          dangerouslySetInnerHTML={{ __html: highlightedCode || placeholder }}
         />
-      )}
-    </div>
+      </pre>
+    ) : (
+      <Editor
+        value={value}
+        onValueChange={handleValueChange}
+        highlight={(code) => {
+          try {
+            return hljs.highlight(code || ' ', { language }).value;
+          } catch {
+            return code;
+          }
+        }}
+        padding={16}
+        className="code-editor overflow-x-auto"
+        style={{
+          fontFamily: '"Fira code", "Fira Mono", monospace',
+          minHeight: '200px',
+          overflowX: 'auto',  // ✅ make Editor scrollable too
+          whiteSpace: 'pre',  
+          width: '100%',
+        }}
+        placeholder={placeholder}
+        disabled={readOnly}
+      />
+    )}
+  </div>
+  
   );
 };
 

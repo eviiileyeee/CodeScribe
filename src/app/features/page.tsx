@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { CloudUpload } from "lucide-react";
 
+
 interface FeatureType {
   title: string;
   description: string;
@@ -25,7 +26,7 @@ const features: FeatureType[] = [
       "Preserves code structure and logic during conversion",
       "Optimized for both frontend and backend codebases",
     ],
-    image: "https://www.nicepng.com/png/full/380-3801129_languages-icon-png.png",
+    image: "/images/multi.png",
     alt: "Multi-language Code Conversion",
     icon: CloudUpload,
   },
@@ -38,7 +39,7 @@ const features: FeatureType[] = [
       "Adapts to your coding style preferences",
       "Ensures converted code is clean and maintainable",
     ],
-    image: "https://cdn-icons-png.flaticon.com/512/6214/6214248.png",
+    image: "/images/chat.png",
     alt: "Syntax and Style Preservation",
     button: "Learn More",
     icon: CloudUpload,
@@ -53,7 +54,7 @@ const features: FeatureType[] = [
       "Integrates smoothly with your development workflow",
     ],
     alt: "Fast and Accurate Conversion",
-    image: "https://clipground.com/images/adios-multiple-languages-clipart-1.png",
+    image: "/images/doodle.png",
     icon: CloudUpload,
   },
 ];

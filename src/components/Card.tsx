@@ -19,7 +19,8 @@ export const Card = ({
       }}
       className="mx-auto -mt-12 h-auto w-full max-w-5xl rounded-[30px]"
     >
-      <div className="relative mx-auto w-full rounded-[32px] border border-neutral-300 bg-neutral-200 p-2 opacity-100 backdrop-blur-lg will-change-auto dark:border-neutral-700 dark:bg-neutral-800/50 md:p-4">
+      <div className="relative mx-auto w-full rounded-[32px] border border-neutral-300 bg-neutral-200 p-2
+       opacity-100 backdrop-blur-lg will-change-auto dark:border-neutral-700 dark:bg-neutral-800/50 md:p-4">
         {children}
       </div>
     </motion.div>
