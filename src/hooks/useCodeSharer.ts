@@ -17,7 +17,7 @@ export const useCodeSharer = () => {
         try {
           await navigator.clipboard.writeText(sharableText);
           alert('Code copied to clipboard. Share it anywhere!');
-        } catch (error) {
+        } catch {
           alert('Unable to copy to clipboard');
         }
       }
