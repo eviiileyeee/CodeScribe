@@ -79,8 +79,7 @@ export function LoginForm() {
             type="button"
             variant="outline"
             className="w-full"
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            disabled
+            onClick={() => signIn("google", { callbackUrl: "/converter" })}
           >
             Login with Google
           </Button>
