@@ -63,13 +63,10 @@ const ConversionResult: React.FC<ConversionResultProps> = ({
                   converted.{language}
                 </span>
               </div>
-              <div className="hidden sm:flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                <Info className="h-4 w-4" />
-                <span>Ready to use</span>
-              </div>
             </div>
 
             <div className="flex items-center gap-2">
+              
               <CodeDownloadButton code={convertedCode} language={language} />
               
               <button
@@ -78,7 +75,6 @@ const ConversionResult: React.FC<ConversionResultProps> = ({
                 title="Share code"
               >
                 <Share className="h-4 w-4 text-slate-600 dark:text-slate-300" />
-                <span className="hidden sm:inline text-sm">Share</span>
               </button>
 
               <button
@@ -87,7 +83,6 @@ const ConversionResult: React.FC<ConversionResultProps> = ({
                 title="Copy to clipboard"
               >
                 <Copy className="h-4 w-4 text-slate-600 dark:text-slate-300" />
-                <span className="hidden sm:inline text-sm">Copy</span>
               </button>
 
               {copySuccess && (

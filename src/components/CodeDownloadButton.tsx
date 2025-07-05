@@ -42,8 +42,8 @@ export const CodeDownloadButton: React.FC<CodeDownloadButtonProps> = ({
   return (
     <button
       onClick={downloadCode}
-      className=" p-2 text-gray-600 rounded hover:bg-gray-200 flex items-center gap-2"
-    >
+      className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 rounded-md transition-all duration-200 hover:scale-105"
+      >
       <Download size={15} />
     </button>
   );

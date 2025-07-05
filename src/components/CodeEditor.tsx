@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Editor from 'react-simple-code-editor';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/night-owl.css';
-import { FileCode, Maximize, X } from 'lucide-react';
+import {  Maximize, X } from 'lucide-react';
 
 interface CodeEditorProps {
   value: string;
@@ -135,7 +135,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200
       ">
         <div className="flex items-center gap-2">
-          <FileCode className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="text-sm font-medium">
             {language}.{getFileExtension()}
           </span>
