@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['tse3.mm.bing.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'tse3.mm.bing.net',
+      },
+    ],
   },
 };
 

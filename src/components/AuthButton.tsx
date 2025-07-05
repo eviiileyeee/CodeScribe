@@ -1,10 +1,11 @@
 // components/AuthButton.tsx
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import {  signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // make sure you have these
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -20,9 +21,11 @@ export default function AuthButton() {
 
   if (!session) {
     return (
-      <Button onClick={() => signIn("github")}>
-        Sign in with GitHub
+      <Link href="/login">
+      <Button >
+        Login
       </Button>
+      </Link>
     );
   }
 

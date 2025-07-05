@@ -126,98 +126,38 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
-  const getEditorColors = () => {
-    if (isDarkMode) {
-      return {
-        backgroundColor: '#0f172a', // slate-900
-        color: '#e2e8f0', // slate-200
-        headerBg: '#1e293b', // slate-800
-        borderColor: '#374151', // gray-600
-        lineNumberBg: '#1e293b', // slate-800
-        lineNumberColor: '#64748b', // slate-500
-      };
-    } else {
-      return {
-        backgroundColor: '#ffffff', // white
-        color: '#1e293b', // slate-800
-        headerBg: '#f1f5f9', // slate-100
-        borderColor: '#e2e8f0', // slate-200
-        lineNumberBg: '#f8fafc', // slate-50
-        lineNumberColor: '#64748b', // slate-500
-      };
+  const getFileExtension = () => {
+    switch (language) {
+      case 'javascript': return 'js';
+      case 'typescript': return 'ts';
+      case 'python': return 'py';
+      default: return language;
     }
   };
-
-  const colors = getEditorColors();
 
   return (
     <div 
       ref={editorRef}
-      className={`relative group ${className} ${isFullscreen ? 'fullscreen-editor' : ''}`}
+      className={`
+        relative group 
+        ${className} 
+        ${isFullscreen ? 'code-editor-fullscreen' : ''}
+      `}
     >
-      {/* Fullscreen styles */}
-      <style jsx>{`
-        .fullscreen-editor {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100vw !important;
-          height: 100vh !important;
-          z-index: 9999 !important;
-          background: ${colors.backgroundColor} !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-        
-        .fullscreen-editor .editor-container {
-          height: calc(100vh - 48px) !important;
-        }
-        
-        .scrollbar-thin {
-          scrollbar-width: thin;
-          scrollbar-color: ${colors.lineNumberColor} ${colors.lineNumberBg};
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar-track {
-          background: ${colors.lineNumberBg};
-          border-radius: 4px;
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-          background: ${colors.lineNumberColor};
-          border-radius: 4px;
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-          background: ${isDarkMode ? '#64748b' : '#475569'};
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar-corner {
-          background: ${colors.lineNumberBg};
-        }
-      `}</style>
-
       {/* Header */}
-      <div 
-        className="flex items-center justify-between px-4 py-2 rounded-t-lg border-b"
-        style={{
-          backgroundColor: colors.headerBg,
-          borderColor: colors.borderColor,
-          color: colors.color,
-        }}
-      >
+      <div className="
+        flex items-center justify-between px-4 py-2 
+        rounded-t-lg border-b border-slate-200 
+        bg-slate-100 text-slate-800
+        dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200
+      ">
         <div className="flex items-center gap-2">
-          <FileCode className="h-4 w-4" style={{ color: colors.lineNumberColor }} />
+          <FileCode className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="text-sm font-medium">
-            {language}.{language === 'javascript' ? 'js' : language === 'typescript' ? 'ts' : language === 'python' ? 'py' : language}
+            {language}.{getFileExtension()}
           </span>
           {isFullscreen && (
-            <span className="text-xs ml-2" style={{ color: colors.lineNumberColor }}>
+            <span className="text-xs ml-2 text-slate-500 dark:text-slate-400">
               Press ESC to exit fullscreen
             </span>
           )}
@@ -230,16 +170,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           </div>
           <button
             onClick={toggleFullscreen}
-            className="ml-2 p-1 rounded transition-colors"
-            style={{
-              color: colors.lineNumberColor,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isDarkMode ? '#374151' : '#e2e8f0';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-            }}
+            className="
+              ml-2 p-1 rounded transition-colors
+              text-slate-500 hover:text-slate-700 hover:bg-slate-200
+              dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-600
+            "
             title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
           >
             {isFullscreen ? (
@@ -252,32 +187,28 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Editor Container */}
-      <div
-        className={`editor-container relative border-x border-b ${!isFullscreen ? 'rounded-b-lg' : ''} overflow-hidden transition-all duration-300 ${
-          isFullscreen ? 'h-[calc(100vh-48px)]' : 'h-64'
-        }`}
-        style={{
-          backgroundColor: colors.backgroundColor,
-          borderColor: colors.borderColor,
-        }}
-      >
+      <div className={`
+        editor-container relative 
+        border-x border-b border-slate-200 
+        bg-white text-slate-800
+        dark:bg-slate-900 dark:border-slate-700 dark:text-slate-200
+        overflow-hidden transition-all duration-300
+        ${!isFullscreen ? 'rounded-b-lg h-64' : 'h-screen-editor'}
+      `}>
         {/* Line Numbers */}
-        <div 
-          className="line-numbers absolute left-0 top-0 bottom-0 w-16 border-r flex flex-col overflow-hidden"
-          style={{
-            backgroundColor: colors.lineNumberBg,
-            borderColor: colors.borderColor,
-          }}
-        >
+        <div className="
+          line-numbers absolute left-0 top-0 bottom-0 w-16 
+          border-r border-slate-200 
+          bg-slate-50 text-slate-500
+          dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400
+          flex flex-col overflow-hidden
+        ">
           <div className="flex-1 overflow-y-hidden">
             {getLineNumbers().map((lineNumber) => (
               <div
                 key={lineNumber}
                 className="h-6 flex items-center justify-end pr-2 text-xs font-mono leading-6"
-                style={{ 
-                  minHeight: '24px',
-                  color: colors.lineNumberColor,
-                }}
+                style={{ minHeight: '24px' }}
               >
                 {lineNumber}
               </div>
@@ -294,14 +225,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           {readOnly ? (
             <pre className="p-4 h-full min-h-full">
               <code
-                className={`language-${language} text-sm leading-6`}
-                style={{ 
-                  fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
-                  lineHeight: '24px',
-                  color: colors.color,
-                }}
+                className={`language-${language} text-sm leading-6 font-mono`}
+                style={{ lineHeight: '24px' }}
                 dangerouslySetInnerHTML={{ 
-                  __html: highlightedCode || `<span style="color: ${colors.lineNumberColor}">${placeholder}</span>` 
+                  __html: highlightedCode || `<span class="text-slate-400 dark:text-slate-500">${placeholder}</span>` 
                 }}
               />
             </pre>
@@ -317,12 +244,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                 }
               }}
               padding={16}
-              className="h-full min-h-full"
+              className="h-full min-h-full font-mono"
               style={{
-                fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
                 fontSize: '14px',
                 lineHeight: '24px',
-                color: colors.color,
                 backgroundColor: 'transparent',
                 minHeight: '100%',
                 resize: 'none',
@@ -338,21 +263,22 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         {/* Overlay for empty state */}
         {!value && !readOnly && (
           <div className="absolute inset-0 ml-16 flex items-center justify-center pointer-events-none">
-            <div 
-              className="text-sm px-4 py-2 rounded-lg backdrop-blur-sm"
-              style={{
-                color: colors.lineNumberColor,
-                backgroundColor: `${colors.lineNumberBg}CC`,
-              }}
-            >
-              {placeholder}
+            <div className="
+              text-sm px-4 py-2 rounded-lg backdrop-blur-sm
+              text-slate-500 bg-slate-100/80
+              dark:text-slate-400 dark:bg-slate-800/80
+            ">
             </div>
           </div>
         )}
 
         {/* Hover effect */}
         {!isFullscreen && (
-          <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-b-lg transition-all duration-200 pointer-events-none" />
+          <div className="
+            absolute inset-0 border-2 border-transparent 
+            group-hover:border-primary/20 rounded-b-lg 
+            transition-all duration-200 pointer-events-none
+          " />
         )}
       </div>
     </div>

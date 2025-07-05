@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/Card";
 
+
 const Hero = () => {
   const { theme } = useTheme();
 
@@ -44,9 +45,8 @@ const Hero = () => {
                     </span>
                   </h1>
                   <p className="my-6 text-center text-base text-gray-700 dark:text-gray-300 md:text-lg">
-                    Trust me when I say this, Metamorix UI is the best way to
-                    build your next website. It&apos;s fast, reliable, and easy to
-                    use. You can build your dream website in minutes.
+                  Code Converter AI redefines how developers translate code across languages — fast, accurate, and intelligent.
+                  Say goodbye to manual rewrites and let AI handle the heavy lifting of cross-language conversion.
                   </p>
 
                   <Link href="/converter">
@@ -80,7 +80,7 @@ const Hero = () => {
         width={1920}
         height={1080}
         className="rounded-[20px]"
-        src="/image.png"
+        src="/images/image.png"
       />
     </ContainerScroll>
   );

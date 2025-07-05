@@ -80,11 +80,11 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="https://tse3.mm.bing.net/th?id=OIP.1fwIPS0UPPDwO84HRxoiBwHaHa&pid=Api&P=0&h=180"
-              width={24}
+              src="/images/process.jpg"
+              width={32}
               height={32}
               alt="CodeScribe AI Logo"
-              className="h-8 w-6"
+              className="h-10 w-10"
             />
             <span className="text-xl font-bold">
               <span className="text-primary">Code</span>
@@ -107,7 +107,7 @@ const Header = () => {
                     </Link>
                   </NavigationMenuItem>
                 ))}
-                <AuthButton />
+                <AuthButton/>
                 <NavigationMenuItem>
                   <ThemeToggle />
                 </NavigationMenuItem>
@@ -147,7 +147,7 @@ const Header = () => {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <AuthButton />
+               <AuthButton/>
               </div>
             </div>
           </div>

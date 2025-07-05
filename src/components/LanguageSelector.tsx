@@ -42,7 +42,6 @@ const LanguageSelector = ({
             className="w-full h-12 px-4 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 disabled:opacity-50"
           >
             <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
               <SelectValue placeholder="Select language" />
             </div>
           </SelectTrigger>

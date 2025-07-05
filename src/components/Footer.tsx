@@ -18,7 +18,7 @@ const Footer = () => {
             <Link href="/" className="block max-w-fit">
               <div className="inline-flex items-center space-x-2">
                 <Image
-                  src="https://tse3.mm.bing.net/th?id=OIP.1fwIPS0UPPDwO84HRxoiBwHaHa&pid=Api&P=0&h=180"
+                  src="/images/process.jpg"
                   width={32}
                   height={40}
                   alt="CodeScribe AI Logo"
@@ -46,9 +46,7 @@ const Footer = () => {
             </ul>
           </div>
           <hr className="border-[#E4E4E7] dark:border-[#27272A]" />
-          <p className="text-center text-sm leading-5 text-gray-600 dark:text-gray-300">
-            © {new Date().getFullYear()} CodeScribe AI, Inc.
-          </p>
+         
         </div>
       </div>
     </footer>
