@@ -130,10 +130,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-grow container mx-auto px-4 py-8">
-      
-
+    <div className="min-h-full flex flex-col">
+      <main className="flex-grow container mx-0 p-0 md:px-4 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="col-span-1">
             <CardContent className="p-6 space-y-4">
