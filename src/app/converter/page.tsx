@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import LanguageSelector from '@/components/LanguageSelector';
 import CodeEditor from '@/components/CodeEditor';
 import ConversionResult from '@/components/ConversionResult';
 import { transformCode } from '@/lib/api';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, Lock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
 
 const Index = () => {
+  const { data: session, status } = useSession();
   const [sourceCode, setSourceCode] = useState('');
   const [prompt, setPrompt] = useState('');
   const [sourceLanguage, setSourceLanguage] = useState('javascript');
@@ -19,10 +21,28 @@ const Index = () => {
   const [result, setResult] = useState({ code: '', explanations: [] as string[] });
   const [isTransforming, setIsTransforming] = useState(false);
 
+  const isAuthenticated = status === 'authenticated';
+  const isLoading = status === 'loading';
+  const MAX_CHARACTERS = 5000;
+
   const handleTransform = async () => {
+    if (!isAuthenticated) {
+      toast.error("Authentication required", {
+        description: "Please log in to transform your code."
+      });
+      return;
+    }
+
     if (!sourceCode.trim()) {
       toast.error("Missing source code", {
         description: "Please enter some code to transform."
+      });
+      return;
+    }
+
+    if (sourceCode.length > MAX_CHARACTERS) {
+      toast.error("Code too long", {
+        description: `Please keep your code under ${MAX_CHARACTERS} characters. Current: ${sourceCode.length}`
       });
       return;
     }
@@ -54,6 +74,59 @@ const Index = () => {
     } finally {
       setIsTransforming(false);
     }
+  };
+
+  const handleCodeChange = (newCode: string) => {
+    if (newCode.length <= MAX_CHARACTERS) {
+      setSourceCode(newCode);
+    } else {
+      toast.error("Character limit exceeded", {
+        description: `Maximum ${MAX_CHARACTERS} characters allowed.`
+      });
+    }
+  };
+
+  const getButtonContent = () => {
+    if (isLoading) {
+      return (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Loading...
+        </>
+      );
+    }
+    
+    if (!isAuthenticated) {
+      return (
+        <>
+          <Lock className="mr-2 h-4 w-4" />
+          Login to Transform
+        </>
+      );
+    }
+    
+    if (isTransforming) {
+      return (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Transforming...
+        </>
+      );
+    }
+    
+    return (
+      <>
+        Transform <ArrowRight className="ml-2 h-4 w-4" />
+      </>
+    );
+  };
+
+  const isButtonDisabled = () => {
+    return isLoading || 
+           !isAuthenticated || 
+           isTransforming || 
+           !sourceCode.trim() || 
+           sourceCode.length > MAX_CHARACTERS;
   };
 
   return (
@@ -94,29 +167,42 @@ const Index = () => {
                 />
               </div>
 
+              {/* Character Count */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">
+                  Character count: {sourceCode.length}/{MAX_CHARACTERS}
+                </span>
+                {sourceCode.length > MAX_CHARACTERS * 0.9 && (
+                  <span className={sourceCode.length > MAX_CHARACTERS ? "text-red-500 font-medium" : "text-yellow-500 font-medium"}>
+                    {sourceCode.length > MAX_CHARACTERS ? "Limit exceeded" : "Approaching limit"}
+                  </span>
+                )}
+              </div>
+
               <CodeEditor
                 value={sourceCode}
-                onChange={setSourceCode}
+                onChange={handleCodeChange}
                 language={sourceLanguage}
                 placeholder="// Enter your source code here..."
                 readOnly={isTransforming}
               />
 
+              {/* Authentication Status Message */}
+              {!isAuthenticated && !isLoading && (
+                <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                  <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm text-amber-800 dark:text-amber-300">
+                    Please log in to transform your code
+                  </span>
+                </div>
+              )}
+
               <Button
                 onClick={handleTransform}
                 className="w-full"
-                disabled={isTransforming || !sourceCode.trim()}
+                disabled={isButtonDisabled()}
               >
-                {isTransforming ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Transforming...
-                  </>
-                ) : (
-                  <>
-                    Transform <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                )}
+                {getButtonContent()}
               </Button>
             </CardContent>
           </Card>
@@ -144,8 +230,10 @@ const Index = () => {
                   <div className="p-8">
                     <h3 className="font-medium mb-2 text-lg">Transform your code</h3>
                     <p>
-                      Enter your source code and choose languages to convert between.
-                      Results will appear here.
+                      {!isAuthenticated && !isLoading
+                        ? "Please log in to start transforming your code"
+                        : "Enter your source code and choose languages to convert between. Results will appear here."
+                      }
                     </p>
                   </div>
                 </div>

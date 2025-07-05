@@ -1,15 +1,16 @@
 "use client";
 
 import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuList,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import AuthButton from "./AuthButton";
+import { Menu, X } from "lucide-react";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -20,6 +21,7 @@ const navigation = [
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // When mounted on client, set mounted to true to avoid hydration mismatch
   useEffect(() => setMounted(true), []);
@@ -86,30 +88,70 @@ const Header = () => {
             />
             <span className="text-xl font-bold">
               <span className="text-primary">Code</span>
-              Scribe AI
+              <span className="hidden sm:inline">Scribe AI</span>
+              <span className="sm:hidden">AI</span>
             </span>
           </Link>
 
-          {/* Navigation Menu */}
-          <NavigationMenu>
-            <NavigationMenuList className="flex space-x-4 items-center">
-              {navigation.map((item) => (
-                <NavigationMenuItem key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  >
-                    {item.name}
-                  </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <NavigationMenu>
+              <NavigationMenuList className="flex space-x-4 items-center">
+                {navigation.map((item) => (
+                  <NavigationMenuItem key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                    >
+                      {item.name}
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+                <AuthButton />
+                <NavigationMenuItem>
+                  <ThemeToggle />
                 </NavigationMenuItem>
-              ))}
-              <AuthButton />
-              <NavigationMenuItem>
-                <ThemeToggle />
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          {/* Mobile menu button and theme toggle */}
+          <div className="md:hidden flex items-center">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="ml-2 p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              aria-label="Toggle mobile menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="px-3 py-2">
+                <AuthButton />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
