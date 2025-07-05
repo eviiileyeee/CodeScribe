@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
 
 const Index = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [sourceCode, setSourceCode] = useState('');
   const [prompt, setPrompt] = useState('');
   const [sourceLanguage, setSourceLanguage] = useState('javascript');

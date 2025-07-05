@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CodeEditor from '@/components/CodeEditor';
-import { useTheme } from 'next-themes';
-import { Copy, Share, Download, CheckCircle, Info, FileText, Code2 } from 'lucide-react';
+import { Copy, Share, CheckCircle, Info, FileText, Code2 } from 'lucide-react';
 import { CodeDownloadButton } from '@/components/CodeDownloadButton';
 import { useCodeSharer } from '@/hooks/useCodeSharer';
 
@@ -20,7 +19,6 @@ const ConversionResult: React.FC<ConversionResultProps> = ({
   language,
 }) => {
   const [copySuccess, setCopySuccess] = useState<string>("");
-  const { theme } = useTheme();
   const { shareCode } = useCodeSharer();
 
   const handleCopy = () => {
