@@ -1,5 +1,6 @@
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import type { Session } from "next-auth";
 
 import { connectToDatabase } from "@/lib/mongo";
 import { User } from "@/models/User";
@@ -18,7 +19,7 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    async signIn({ user, account }: { user: any; account: any }) {
+    async signIn({ user, account }: { user: { name?: string | null; email?: string | null; image?: string | null }; account: { provider?: string } | null }) {
       await connectToDatabase();
 
       const existingUser = await User.findOne({ email: user.email });
@@ -35,7 +36,7 @@ export const authOptions = {
       return true;
     },
 
-    async session({ session }: { session: any }) {
+    async session({ session }: { session: Session }) {
       await connectToDatabase();
 
       const dbUser = await User.findOne({ email: session.user?.email });
