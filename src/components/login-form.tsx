@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa"; 
 
 export function LoginForm() {
   const [email, setEmail] = useState("")
@@ -28,8 +30,7 @@ export function LoginForm() {
       password,
     })
     if (result?.ok) {
-      router.push("/converter") // Redirect to dashboard on successful login
-    } else {
+      router.push("/converter") 
       console.error("Login failed")
     }
   }
@@ -75,12 +76,14 @@ export function LoginForm() {
           <Button type="submit" className="w-full" disabled>
             Login
           </Button>
+          
           <Button
             type="button"
             variant="outline"
             className="w-full"
             onClick={() => signIn("google", { callbackUrl: "/converter" })}
           >
+            <FcGoogle className="h-8 w-8" />
             Login with Google
           </Button>
           <Button
@@ -89,10 +92,11 @@ export function LoginForm() {
             className="w-full"
             onClick={() => signIn("github", { callbackUrl: "/converter" })}
           >
+            <FaGithub className="h-8 w-8" />
             Login with Github
           </Button>
         </form>
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm opacity-50 cursor-not-allowed" >
           Don&apos;t have an account?{" "}
           <Link href="#" className="underline">
             Sign up
