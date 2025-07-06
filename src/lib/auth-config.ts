@@ -1,6 +1,5 @@
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import type { Session } from "next-auth";
 
 import { connectToDatabase } from "@/lib/mongo";
 import { User } from "@/models/User";
@@ -36,7 +35,9 @@ export const authOptions = {
       return true;
     },
 
-    async session({ session }: { session: Session }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session(params: any) {
+      const { session } = params;
       await connectToDatabase();
 
       const dbUser = await User.findOne({ email: session.user?.email });
