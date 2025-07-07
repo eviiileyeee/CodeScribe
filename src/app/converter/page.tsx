@@ -7,7 +7,7 @@ import CodeEditor from '@/components/CodeEditor';
 import ConversionResult from '@/components/ConversionResult';
 import { transformCode } from '@/lib/api';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Loader2, Lock } from 'lucide-react';
+import { ArrowRight, Loader2, Lock, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
@@ -47,6 +47,8 @@ const Index = () => {
       return;
     }
 
+
+
     try {
       setIsTransforming(true);
       const response = await transformCode({
@@ -57,6 +59,8 @@ const Index = () => {
         preserveComments: true,
         optimizeCode: false,
       });
+
+
 
       setResult({
         code: response.data.convertedCode,
@@ -113,6 +117,8 @@ const Index = () => {
         </>
       );
     }
+
+
     
     return (
       <>
@@ -128,6 +134,10 @@ const Index = () => {
            !sourceCode.trim() || 
            sourceCode.length > MAX_CHARACTERS;
   };
+
+
+
+
 
   return (
     <div className="min-h-full flex flex-col">
@@ -192,6 +202,18 @@ const Index = () => {
                   </span>
                 </div>
               )}
+
+              {/* Rate Limit Info */}
+              {isAuthenticated && (
+                <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <span className="text-sm text-blue-800 dark:text-blue-300">
+                    Rate limit: 20 requests per 24 hours
+                  </span>
+                </div>
+              )}
+
+
 
               <Button
                 onClick={handleTransform}

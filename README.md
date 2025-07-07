@@ -1,4 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CodeScribe AI - Code Transformation Tool
+
+This is a [Next.js](https://nextjs.org) project that provides AI-powered code transformation between different programming languages.
+
+## Features
+
+- **Multi-language Code Conversion**: Transform code between JavaScript, TypeScript, Python, Java, C#, Go, Rust, PHP, Ruby, C++, and Kotlin
+- **Rate Limiting**: Built-in rate limiting with real-time display of remaining requests
+- **Authentication**: Secure user authentication with NextAuth.js
+- **Real-time Feedback**: Live character count and validation
+- **Code Sharing**: Share converted code snippets easily
+- **Dark/Light Theme**: Toggle between themes for better user experience
+
+## Rate Limiting
+
+The application integrates with the backend's rate limiting system:
+
+### **Backend Integration**
+- **API Endpoints**: Uses backend `/api/code/convert` and `/api/code/rate-limits`
+- **Rate Limit Headers**: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+- **Daily Limits**: 20 requests per 24-hour window
+- **Auto Reset**: Limits reset every 24 hours
+
+### **Features**
+- **Visual Indicators**: Rate limit status displayed with color-coded alerts
+- **Real-time Updates**: Remaining requests shown in real-time
+- **Smart Warnings**: Users warned when approaching limits
+- **Reset Timer**: Shows when rate limits will reset
+- **Profile Dashboard**: Rate limit information in profile page
+- **API Protection**: Server-side rate limit enforcement via backend
+
+### **Rate Limit States**
+- 🟢 **Normal**: Plenty of requests remaining
+- 🟡 **Warning**: Less than 20% of requests remaining  
+- 🔴 **Exceeded**: No requests remaining, shows reset timer
 
 ## Getting Started
 

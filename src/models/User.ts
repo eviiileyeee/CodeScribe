@@ -6,6 +6,8 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     image: String,
     provider: String,
+    rateLimitCount: { type: Number, default: 0 },
+    rateLimitLastReset: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );

@@ -3,9 +3,10 @@
 
 import {  signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // make sure you have these
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import { LogOut } from "lucide-react";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -33,21 +34,24 @@ export default function AuthButton() {
 
   return (
     <div className="flex items-center gap-4">
-      <Avatar>
-        <AvatarImage src={user?.image || ""} alt={user?.name || "user"} />
-        <AvatarFallback>
-          {user?.name?.[0]?.toUpperCase() || "?"}
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex flex-col">
-        <span className="text-sm font-medium leading-none">
-          {user?.name}
-        </span>
-        <span className="text-xs text-muted-foreground">
-          {user?.email}
-        </span>
-      </div>
+      <Link href="/profile" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
+        <Avatar>
+          <AvatarImage src={user?.image || ""} alt={user?.name || "user"} />
+          <AvatarFallback>
+            {user?.name?.[0]?.toUpperCase() || "?"}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col">
+          <span className="text-sm font-medium leading-none">
+            {user?.name}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {user?.email}
+          </span>
+        </div>
+      </Link>
       <Button variant="outline" size="sm" onClick={() => signOut()}>
+        <LogOut className="h-4 w-4 mr-1" />
         Sign out
       </Button>
     </div>

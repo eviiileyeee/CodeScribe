@@ -13,7 +13,7 @@ interface TransformResponse {
     convertedCode: string;
     explanations: string[];
     warnings: string[];
-    metadata: {
+    metadata?: {
       sourceLanguage: string;
       targetLanguage: string;
       preserveComments: boolean;
@@ -23,14 +23,15 @@ interface TransformResponse {
       conversionTime: number;
     };
   };
+  rateLimit?: {
+    remaining: number;  // Number of requests remaining in current window
+    limit: number;      // Total requests allowed in the window
+    resetTime: string;  // ISO timestamp when rate limit resets
+  };
 }
 
-// Replace with your actual API URL
-const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/code/convert`;
-
-if (!API_URL) {
-  throw new Error('NEXT_PUBLIC_BACKEND_URL environment variable is not defined');
-}
+// Use the local Next.js API endpoint
+const API_URL = '/api/code/convert';
 
 export const transformCode = async (request: TransformRequest): Promise<TransformResponse> => {
   try {
@@ -73,4 +74,27 @@ export const supportedLanguages = [
   { value: 'c++', label: 'C++' },       // ✅ matches server key 'c++'
   { value: 'kotlin', label: 'Kotlin' },
 ];
+
+// Get rate limit information from backend
+export const getRateLimitInfo = async (userId: string) => {
+  try {
+    const response = await fetch('/api/code/my-limit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching rate limit info:', error);
+    throw new Error('Failed to fetch rate limit information.');
+  }
+};
 
