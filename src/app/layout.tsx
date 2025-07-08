@@ -3,6 +3,8 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Providers from "@/components/Provider";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,6 +82,7 @@ export default function RootLayout({
           <Header />
           <main className="container mx-auto p-0 md:px-4 md:py-8">
             {children}
+            <SpeedInsights />
           </main>
           <Footer />
         </Providers>
