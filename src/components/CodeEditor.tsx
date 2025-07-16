@@ -102,6 +102,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
   // Sync scroll between line numbers and editor
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    //console.log("element scrolled")
     const target = e.target as HTMLDivElement;
     const lineNumbers = editorRef.current?.querySelector('.line-numbers') as HTMLDivElement;
     if (lineNumbers) {

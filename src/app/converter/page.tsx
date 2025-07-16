@@ -11,6 +11,7 @@ import { ArrowRight, Loader2, Lock, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
+import { BackButton } from '@/components/BackButton'
 
 const Index = () => {
   const { status } = useSession();
@@ -99,7 +100,7 @@ const Index = () => {
         </>
       );
     }
-    
+
     if (!isAuthenticated) {
       return (
         <>
@@ -108,7 +109,7 @@ const Index = () => {
         </>
       );
     }
-    
+
     if (isTransforming) {
       return (
         <>
@@ -119,7 +120,7 @@ const Index = () => {
     }
 
 
-    
+
     return (
       <>
         Transform <ArrowRight className="ml-2 h-4 w-4" />
@@ -128,11 +129,11 @@ const Index = () => {
   };
 
   const isButtonDisabled = () => {
-    return isLoading || 
-           !isAuthenticated || 
-           isTransforming || 
-           !sourceCode.trim() || 
-           sourceCode.length > MAX_CHARACTERS;
+    return isLoading ||
+      !isAuthenticated ||
+      isTransforming ||
+      !sourceCode.trim() ||
+      sourceCode.length > MAX_CHARACTERS;
   };
 
 
@@ -142,6 +143,7 @@ const Index = () => {
   return (
     <div className="min-h-full flex flex-col">
       <main className="flex-grow container mx-0 p-0 md:px-4 md:py-8">
+        <BackButton />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="col-span-1">
             <CardContent className="p-6 space-y-4">

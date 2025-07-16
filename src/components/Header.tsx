@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import AuthButton from "./AuthButton";
 import { Menu, X } from "lucide-react";
+import { Satisfy } from 'next/font/google';
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -18,18 +19,22 @@ const navigation = [
   { name: "Pricing", href: "/pricing" },
 ];
 
+const satisfy = Satisfy({
+  subsets: ['latin'],
+  weight: '400',
+});
+
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+
   // When mounted on client, set mounted to true to avoid hydration mismatch
   useEffect(() => setMounted(true), []);
-
   // Small toggle button component
   const ThemeToggle = () => {
     if (!mounted) return null; // Avoid SSR mismatch
-
     return (
       <button
         aria-label="Toggle Theme"
@@ -79,18 +84,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/images/process.jpg"
-              width={32}
-              height={32}
-              alt="CodeScribe AI Logo"
-              className="h-10 w-10"
-            />
-            <span className="text-xl font-bold">
-              <span className="text-primary">Code</span>
-              <span className="hidden sm:inline">Scribe AI</span>
-              <span className="sm:hidden">AI</span>
-            </span>
+            <p className={`${satisfy.className} text-gray-800 text-2xl text-center drop-shadow-md dark:text-gray-50`}>
+              CodeScribe ai
+            </p>
           </Link>
 
           {/* Desktop Navigation */}
@@ -107,7 +103,7 @@ const Header = () => {
                     </Link>
                   </NavigationMenuItem>
                 ))}
-                <AuthButton/>
+                <AuthButton />
                 <NavigationMenuItem>
                   <ThemeToggle />
                 </NavigationMenuItem>
@@ -147,7 +143,7 @@ const Header = () => {
                 </Link>
               ))}
               <div className="px-3 py-2">
-               <AuthButton/>
+                <AuthButton />
               </div>
             </div>
           </div>
