@@ -136,10 +136,6 @@ const Index = () => {
       sourceCode.length > MAX_CHARACTERS;
   };
 
-
-
-
-
   return (
     <div className="min-h-full flex flex-col">
       <main className="flex-grow container mx-0 p-0 md:px-4 md:py-8">
