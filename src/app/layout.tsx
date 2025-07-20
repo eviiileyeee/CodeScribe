@@ -37,7 +37,7 @@ export const metadata = {
     siteName: "Code Converter AI",
     images: [
       {
-        url: "/images/process.jpg", // Should exist in your /public folder
+        url: "/images/process.png", // Should exist in your /public folder
         width: 1200,
         height: 630,
         alt: "Code Converter AI preview",
@@ -51,14 +51,14 @@ export const metadata = {
     title: "Code Converter AI",
     description: "Your AI-powered code converter. Built by @eviiileyeee.",
     creator: "@eviiileyeee", // Optional Twitter handle
-    images: ["/images/process.jpg"],
+    images: ["/images/process.png"],
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/images/process.jpg",
+    apple: "/images/process.png",
   },
-  manifest: "/images/process.jpg",
+  manifest: "/images/process.png",
   category: "technology",
   generator: "Next.js 14 + OpenAI + Tailwind",
 };
