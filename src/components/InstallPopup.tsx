@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 export default function InstallPopup() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [show, setShow] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -38,7 +40,7 @@ export default function InstallPopup() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 p-4 bg-white border rounded shadow-lg z-50">
+    <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 p-4 bg-white dark:bg-gray-900 border rounded shadow-lg z-50">
       <p className="mb-2 text-black font-medium">
         Install our app for a better experience!
       </p>
