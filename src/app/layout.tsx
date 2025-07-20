@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Providers from "@/components/Provider";
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
+import InstallButton from "@/components/InstallPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,12 +77,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <Header />
           <main className="container mx-auto p-0 md:px-4 md:py-8">
             {children}
             <SpeedInsights />
+            <InstallButton />
           </main>
           <Footer />
         </Providers>

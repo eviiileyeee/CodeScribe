@@ -12,7 +12,15 @@ import { Card } from "@/components/Card";
 const Hero = () => {
   const { theme } = useTheme();
 
-  return (  
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").then(() => {
+        console.log("SW registered");
+      });
+    }
+  }, []);
+
+  return (
     <ContainerScroll
       titleComponent={
         <>
@@ -45,10 +53,10 @@ const Hero = () => {
                     </span>
                   </h1>
                   <p className="my-6 text-center text-base text-gray-700 dark:text-gray-300 md:text-lg">
-                  Code Converter AI redefines how developers translate code across languages — fast, accurate, and intelligent.
-                  Say goodbye to manual rewrites and let AI handle the heavy lifting of cross-language conversion.
+                    Code Converter AI redefines how developers translate code across languages — fast, accurate, and intelligent.
+                    Say goodbye to manual rewrites and let AI handle the heavy lifting of cross-language conversion.
                   </p>
-
+                 
                   <Link href="/converter">
                     <button className="relative mt-4 cursor-pointer rounded-[16px] border-none bg-[radial-gradient(circle_80px_at_80%_-10%,#ffffff,#181b1b)] p-[2px] text-lg transition-all duration-150">
                       <div className="absolute bottom-0 left-0 h-full w-[70px] rounded-[16px] bg-[radial-gradient(circle_60px_at_0%_100%,#3fe9ff,#0000ff80,transparent)] shadow-[-10px_10px_30px_#0051ff2d] transition-all duration-150" />
@@ -60,6 +68,7 @@ const Hero = () => {
                     </button>
                   </Link>
                 </div>
+                
                 <div className="relative flex w-full items-center px-4 py-10 md:py-20">
                   <div
                     style={{

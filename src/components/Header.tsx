@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import AuthButton from "./AuthButton";
 import { Menu, X } from "lucide-react";
 import { Satisfy } from 'next/font/google';
+import { useSession } from "next-auth/react";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -24,6 +25,9 @@ const satisfy = Satisfy({
 });
 
 const Header = () => {
+  const { status } = useSession();
+  const isLoggedIn = status === 'authenticated';
+
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -103,6 +107,8 @@ const Header = () => {
                   </NavigationMenuItem>
                 ))}
                 <AuthButton />
+                 
+                
                 <NavigationMenuItem>
                   <ThemeToggle />
                 </NavigationMenuItem>
@@ -142,7 +148,25 @@ const Header = () => {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <AuthButton />
+                {isLoggedIn ?
+                  (
+                    <Link href={"/profile"}
+                      className=" text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                  )
+                  :
+                  (
+                    <Link href={"/login"}
+                      className="text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                  )
+                }
               </div>
             </div>
           </div>
