@@ -97,12 +97,13 @@ const ConversionResult: React.FC<ConversionResultProps> = ({
           </div>
 
           {/* Code Editor */}
-          <div className="rounded-lg overflow-hidden shadow-lg">
+          <div className="rounded-lg overflow-hidden shadow-lg min-h-[100px]">
             <CodeEditor
               value={convertedCode}
               onChange={() => { }}
               language={language}
               readOnly={true}
+              className=""
             />
           </div>
         </TabsContent>

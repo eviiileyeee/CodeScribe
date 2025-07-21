@@ -115,4 +115,48 @@ export async function convertCode(code: string, fromLanguage: string, toLanguage
     }
     throw new Error('Failed to convert code. Please try again.');
   }
+}
+
+/**
+ * Extract code snippets from an uploaded file using Gemini Flash 1.5.
+ * Supports .txt, .pdf, and .docx files.
+ * @param file File object from FormData
+ * @returns Extracted code as a string
+ */
+export async function extractCodeFromFile(file: File, filename?: string): Promise<string> {
+  let text = '';
+  // Read file content based on type or extension
+  const codeMimeTypes = [
+    'application/javascript',
+    'application/x-javascript',
+    'text/javascript',
+    'text/x-python',
+    'text/x-java-source',
+    'text/x-typescript',
+    'text/x-c++src',
+    'text/x-csrc',
+    'text/x-csharp',
+    'text/x-ruby',
+    'text/x-go',
+    'application/x-httpd-php',
+    'text/x-rustsrc',
+    'text/x-kotlin',
+  ];
+  if (
+    file.type === 'text/plain' ||
+    codeMimeTypes.includes(file.type) ||
+    (filename && /\.(js|py|java|ts|cpp|c|cs|rb|go|php|rs|kt|txt)$/i.test(filename))
+  ) {
+    text = await file.text();
+  } else {
+    throw new Error('Unsupported file type for code extraction');
+  }
+
+  // Use Gemini Flash 1.5 to extract code blocks from the text
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+  const prompt = `Extract all code snippets from the following document. Only return the code, concatenated together, and nothing else. If there is no code, return an empty string.\n\nDOCUMENT:\n\n${text}`;
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  const code = response.text().trim();
+  return code;
 } 

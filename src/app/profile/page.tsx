@@ -1,9 +1,18 @@
 "use client";
-
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -20,6 +29,7 @@ import {
 } from 'lucide-react';
 import RateLimitDisplay from '@/components/RateLimitDisplay';
 import { getRateLimitInfo } from '@/lib/api';
+import { LogOut } from "lucide-react";
 
 interface RateLimitInfo {
   remaining: number;
@@ -116,7 +126,30 @@ const ProfilePage = () => {
                   <p className="text-slate-600 dark:text-slate-400 truncate max-w-[140px] md:max-w-full" title={user?.email || ''}>{user?.email}</p>
                 </div>
               </div>
-
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <p className="flex text-sm font-medium leading-none text-muted-foreground">
+                    <LogOut className="h-4 w-4 mr-1" />
+                    Sign out
+                  </p>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action will log out your current session.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>
+                      <div onClick={() => signOut()}>
+                        Sign Out
+                      </div>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <Separator />
 
               <div className="space-y-3">

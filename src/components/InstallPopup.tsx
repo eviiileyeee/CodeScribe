@@ -1,11 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 
 export default function InstallPopup() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [show, setShow] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handler = (e: Event) => {
