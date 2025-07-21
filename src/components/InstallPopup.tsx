@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 export default function InstallPopup() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [show, setShow] = useState(false);
@@ -39,23 +40,24 @@ export default function InstallPopup() {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 p-4 bg-white dark:bg-gray-900 border rounded shadow-lg z-50">
-      <p className="mb-2 text-black font-medium">
-        Install our app for a better experience!
-      </p>
+    <Card>
+      <h2 className="text-lg font-bold">Install App</h2>
+      <p className="text-sm">Install this app on your device for a better experience.</p>
       <div className="flex gap-2">
-        <button
+        <Button
           onClick={handleInstallClick}
           className="px-4 py-2 bg-black text-white rounded"
         >
           Install
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={handleDismiss}
           className="px-4 py-2 bg-gray-200 text-black rounded"
         >
           Not Now
-        </button>
+        </Button>
       </div>
+    </Card>
     </div>
   );
 }
