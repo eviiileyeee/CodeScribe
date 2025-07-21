@@ -40,9 +40,9 @@ export default function InstallPopup() {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 p-4 z-50 flex justify-start items-end">
-      <Card className="p-6 rounded-xl shadow-2xl border border-gray-200 bg-white max-w-sm w-full">
-        <h2 className="text-lg font-bold mb-2">Install App</h2>
-        <p className="text-sm mb-4">Install this app on your device for a better experience.</p>
+      <Card className="p-6 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-sm w-full">
+        <h2 className="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100">Install App</h2>
+        <p className="text-sm mb-4 text-gray-700 dark:text-gray-300">Install this app on your device for a better experience.</p>
         <div className="flex gap-2">
           <Button
             onClick={handleInstallClick}
@@ -52,7 +52,7 @@ export default function InstallPopup() {
           </Button>
           <Button
             onClick={handleDismiss}
-            className="px-4 py-2 bg-gray-200 text-black rounded border border-gray-300 hover:bg-gray-300 transition-colors"
+            className="px-4 py-2 bg-gray-200 text-black rounded border border-gray-300 hover:bg-gray-300 transition-colors dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
           >
             Not Now
           </Button>
