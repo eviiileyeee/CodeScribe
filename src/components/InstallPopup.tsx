@@ -39,8 +39,8 @@ export default function InstallPopup() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4 p-4 bg-white dark:bg-gray-900 border rounded shadow-lg z-50">
-    <Card>
+    <div className="fixed bottom-4 left-4 right-4 md:right-auto md:left-4  z-50">
+    <Card >
       <h2 className="text-lg font-bold">Install App</h2>
       <p className="text-sm">Install this app on your device for a better experience.</p>
       <div className="flex gap-2">
