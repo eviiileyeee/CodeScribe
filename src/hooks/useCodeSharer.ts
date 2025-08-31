@@ -1,7 +1,7 @@
 export const useCodeSharer = () => {
     const shareCode = async (code: string, language: string , explanations: string[]) => {
       const sharableText = `Check out this ${language} code converted from "https://code-scribe-ai.vercel.app/":
-       \n\n${code}\n\n${explanations.join('\n')}`;
+       \n\n> ${code}\n\n${explanations.join('\n')}`;
   
       if (navigator.share) {
         try {
