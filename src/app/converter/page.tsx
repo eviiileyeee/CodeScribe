@@ -12,6 +12,36 @@ import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Skeleton } from "@/components/ui/skeleton"
 import { BackButton } from '@/components/BackButton'
+import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
+
+
+
+const loadingStates = [
+  {
+    text: "Analyzing input code...",
+  },
+  {
+    text: "Detecting programming language...",
+  },
+  {
+    text: "Parsing syntax and structure...",
+  },
+  {
+    text: "Mapping functions and variables...",
+  },
+  {
+    text: "Applying conversion rules...",
+  },
+  {
+    text: "Optimizing translated code...",
+  },
+  {
+    text: "Ensuring compatibility...",
+  },
+  {
+    text: "Finalizing conversion output...",
+  },
+];
 
 const Index = () => {
   const { status } = useSession();
@@ -102,7 +132,6 @@ const Index = () => {
         </>
       );
     }
-
     if (!isAuthenticated) {
       return (
         <>
@@ -111,7 +140,6 @@ const Index = () => {
         </>
       );
     }
-
     if (isTransforming) {
       return (
         <>
@@ -120,8 +148,6 @@ const Index = () => {
         </>
       );
     }
-
-
 
     return (
       <>
@@ -213,6 +239,8 @@ const Index = () => {
 
   return (
     <div className="min-h-full flex flex-col">
+            <Loader loadingStates={loadingStates} loading={isTransforming} duration={2000} />
+
       <main className="flex-grow container mx-0 p-0 md:px-4 md:py-8">
         <BackButton />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

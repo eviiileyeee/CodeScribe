@@ -84,9 +84,10 @@ const Hero = () => {
         </>
       }
     >
+      
       <Image
         alt="header"
-        width= {1920}
+        width={1920}
         height={1080}
         className="rounded-[20px]"
         src="/images/image.png"

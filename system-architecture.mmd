@@ -1,0 +1,48 @@
+flowchart TD
+  subgraph Client
+    A1["User Interface (Next.js, React)"]
+    A2["Authentication (NextAuth.js)"]
+    A3["Code Upload/Editor"]
+    A4["Language Selector & Prompt"]
+  end
+
+  subgraph API Layer
+    B1["API Route: /api/code/convert"]
+    B2["API Route: /api/code/upload"]
+    B3["API Route: /api/code/supported-languages"]
+    B4["API Route: /api/code/rate-limits"]
+    B5["API Route: /api/code/my-limit"]
+    B6["API Route: /api/auth/*"]
+  end
+
+  subgraph Backend Services
+    C1["Gemini AI Service (Code Conversion)"]
+    C2["MongoDB (User, Rate Limit)"]
+    C3["Rate Limiting Logic"]
+    C4["File Extraction Service"]
+  end
+
+  A1 -->|"User Actions"| A3
+  A1 -->|"User Actions"| A4
+  A1 -->|"Sign In"| A2
+  A2 -->|"Auth Request"| B6
+  A3 -->|"Convert/Upload"| B1
+  A3 -->|"Upload File"| B2
+  A4 -->|"Select Language/Prompt"| B1
+
+  B1 -->|"Convert Request"| C1
+  B2 -->|"Extract Code"| C4
+  B1 -->|"Rate Limit Check"| C3
+  B1 -->|"User Data"| C2
+  B5 -->|"User Rate Info"| C2
+  B4 -->|"Global Rate Info"| C3
+  B6 -->|"User Auth"| C2
+
+  C1 -->|"Converted Code"| B1
+  C4 -->|"Extracted Code"| B2
+  C2 -->|"User/Rate Data"| B1
+  C3 -->|"Limit Status"| B1
+
+  B1 -->|"Result"| A1
+  B2 -->|"Extracted Code"| A1
+  B6 -->|"Auth Status"| A2 
