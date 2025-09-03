@@ -395,7 +395,7 @@ const Index = () => {
 
         <div className="mt-12 text-center text-sm text-muted-foreground">
           <p>
-            Powered by AI - Transform code between languages with ease.
+            Powered by Google Gemini - Transform code between languages with ease.
           </p>
         </div>
       </main>

@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/Card";
-
+import { Features } from "@/components/features";
 
 const Hero = () => {
   const { theme } = useTheme();
@@ -21,6 +21,7 @@ const Hero = () => {
   }, []);
 
   return (
+    <>
     <ContainerScroll
       titleComponent={
         <>
@@ -84,15 +85,18 @@ const Hero = () => {
         </>
       }
     >
-      
+
       <Image
         alt="header"
-        width={1920}
-        height={1080}
+        width={1000}
+        height={1000}
         className="rounded-[20px]"
-        src="/images/image.png"
+        src="/images/bg.jpg"
       />
     </ContainerScroll>
+    
+    <Features />
+    </>
   );
 };
 
