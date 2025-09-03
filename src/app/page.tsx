@@ -91,7 +91,7 @@ const Hero = () => {
         width={1000}
         height={1000}
         className="rounded-[20px]"
-        src="/images/bg.jpg"
+        src="/images/c.png"
       />
     </ContainerScroll>
     
