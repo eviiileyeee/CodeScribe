@@ -43,7 +43,7 @@ export async function convertCodeWithGemini(
     if (!supportedTargets.includes(normalizedTargetLang)) {
       throw new Error(`Conversion from '${sourceLanguage}' to '${targetLanguage}' is not supported`);
     }
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
     const prompt = `
     You are an expert code translator. 
     Convert the following ${sourceLanguage} code to ${targetLanguage}.

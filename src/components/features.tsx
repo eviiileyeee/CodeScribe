@@ -43,7 +43,7 @@ export function Features() {
           <CardSkeletonBody>
             <div className="w-full h-full p-4 rounded-lg bg-neutral-100 border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 ml-6 mt-2">
               <Image
-                src="/images/image.png"
+                src="/images/c.png"
                 alt="Dashboard"
                 width={500}
                 height={500}
