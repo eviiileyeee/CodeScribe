@@ -43,7 +43,7 @@ export async function convertCodeWithGemini(
     if (!supportedTargets.includes(normalizedTargetLang)) {
       throw new Error(`Conversion from '${sourceLanguage}' to '${targetLanguage}' is not supported`);
     }
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const prompt = `
     You are an expert code translator. 
     Convert the following ${sourceLanguage} code to ${targetLanguage}.
@@ -103,7 +103,7 @@ export async function convertCodeWithGemini(
 
 export async function convertCode(code: string, fromLanguage: string, toLanguage: string) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
     const prompt = `Convert the following ${fromLanguage} code to ${toLanguage}. Provide only the converted code without any explanations:\n\n${code}`;
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -153,7 +153,7 @@ export async function extractCodeFromFile(file: File, filename?: string): Promis
   }
 
   // Use Gemini Flash 1.5 to extract code blocks from the text
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   const prompt = `Extract all code snippets from the following document. Only return the code, concatenated together, and nothing else. If there is no code, return an empty string.\n\nDOCUMENT:\n\n${text}`;
   const result = await model.generateContent(prompt);
   const response = await result.response;
